@@ -62,10 +62,16 @@ app.use(function(err, req, res, next) {
 server.listen(3000);
 console.log('server is listening');
 
+// クライアントとの接続が確立
 io.sockets.on('connection', function(socket) {
 	console.log('Event connection');
+	
+	// クライアントに接続完了のメッセージを送る
+	io.sockets.emit('message:receive', { message: "Success Connection." });
+
 	socket.on('message:send', function(data) {
 		console.log('Event: message:send');
+		console.log(data);
 		io.sockets.emit('message:receive', { message: data.message });
 	});
 });
