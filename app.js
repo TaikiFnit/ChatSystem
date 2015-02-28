@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var io = require('socket.io');
+var mysql = require('mysql');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -12,6 +13,24 @@ var users = require('./routes/users');
 var app = express();
 var server = require('http').createServer(app);
 var io = io.listen(server);
+
+
+// connect mysql data base 
+var connection = mysql.createConnection({
+	host: process.env.DB_HOST || 'localhost',
+	user : 'mod1_user',
+	password: process.env.DB_PASS || 'IRC2015',
+	database: process.env.DB_NAME || 'mod1_DB'
+});
+
+var connect_message = {
+	"name" : "NodejsServer",
+	"message" : "Success Connection"
+};
+
+connection.query('select * from messages', function(err, rows){
+	console.log(rows);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -67,12 +86,19 @@ io.sockets.on('connection', function(socket) {
 	console.log('Event connection');
 	
 	// クライアントに接続完了のメッセージを送る
-	io.sockets.emit('message:receive', { message: "Success Connection." });
+	socket.emit('receive', connect_message);
+	connection.query('select * from messages', function(err, rows){
+		console.log('Emit bellow');
+		console.log(rows);
+		socket.emit('all_receive', rows);	
+	});
 
-	socket.on('message:send', function(data) {
+	socket.on('send', function(data) {
 		console.log('Event: message:send');
 		console.log(data);
-		io.sockets.emit('message:receive', { message: data.message });
+		connection.query('insert into messages(name, message) values(?, ?)', [data.name, data.message]);
+
+		io.sockets.emit('receive', { name: data.name, message: data.message });
 	});
 });
 

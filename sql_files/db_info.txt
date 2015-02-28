@@ -1,0 +1,6 @@
+dbname : mod1_DB
+table : messages
+calms
+id :  int auto_increment primary key
+name : verchar(255)
+message : text
