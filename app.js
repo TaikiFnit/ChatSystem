@@ -14,7 +14,6 @@ var app = express();
 var server = require('http').createServer(app);
 var io = io.listen(server);
 
-
 // connect mysql data base 
 var connection = mysql.createConnection({
 	host: process.env.DB_HOST || 'localhost',
@@ -28,8 +27,12 @@ var connect_message = {
 	"message" : "Success Connection"
 };
 
-connection.query('select * from messages', function(err, rows){
-	console.log(rows);
+// Catch data from Database and output console
+connection.query('select * from messages', function(err, results, fields){
+	console.log('---results---');
+	console.log(results);
+	console.log('---fields---');
+	console.log(fields);
 });
 
 // view engine setup
@@ -54,7 +57,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// error handlers
+//--- Error Handlers ---//
 
 // development error handler
 // will print stacktrace
@@ -78,28 +81,67 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//--- End Error Handlers ---//
+
+// listen server
 server.listen(3000);
 console.log('server is listening');
 
+//--- Socket.IO ---//
+
 // クライアントとの接続が確立
 io.sockets.on('connection', function(socket) {
-	console.log('Event connection');
+	console.log('Event: connection');
 	
+	console.log('Emit: receive');
 	// クライアントに接続完了のメッセージを送る
 	socket.emit('receive', connect_message);
-	connection.query('select * from messages', function(err, rows){
-		console.log('Emit bellow');
-		console.log(rows);
-		socket.emit('all_receive', rows);	
+
+	// DBに格納されているすべてのデータを抽出し、それをクライアントに送る
+	connection.query('select * from messages', function(err, results){
+		// DBから取ってきたデータをコンソールに出力
+		console.log('Emit: bellow data');
+		console.log(results);
+		console.log('--- data end ---');
+		console.log('Emit: all_receive');
+		socket.emit('all_receive', results);	
 	});
 
+	// クライアントからメッセージが送られてきたときのイベント
 	socket.on('send', function(data) {
-		console.log('Event: message:send');
+		//　送られてきたデータをコンソールに出力
+		console.log('Event: send');
 		console.log(data);
-		connection.query('insert into messages(name, message) values(?, ?)', [data.name, data.message]);
+		
+		// 送られてきたデータをDBに挿入
+		connection.query('insert into messages(name, message) values(?, ?)', [data.name, data.message], function(err, results){
+			// SQL文を送った結果をコンソールに出力
+			console.log('--- insert result ---');
+			console.log(results);
+			console.log('--- insert result end ---');
+		});
 
+		// 送られてきたデータ(メッセージ)をすべてのクライアントに送る
+		console.log('Emit: receive');	
 		io.sockets.emit('receive', { name: data.name, message: data.message });
 	});
+
+	// 送られてきたidのメッセージをDBから削除するイベント
+	socket.on('SeDelete', function(data) {
+		console.log('Event: SeDelete');
+		connection.query('delete from messages where id = ?', [data.id], function(err, results){
+			// DBからdeleteした結果を出力
+			console.log('--- delete results ---');
+			console.log(results);
+			console.log('--- delete results end---');
+			
+			// クライアントにdeleteを要求
+			io.sockets.emit('ClDelete', {id: data.id});
+		});
+	});
+			
 });
+
+//--- End Socket.IO ---//
 
 module.exports = app;

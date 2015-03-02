@@ -1,8 +1,7 @@
 var socket = io.connect();
 
 socket.on('receive', function (data) {
-  $("div#chat-area").prepend("<div data-num='" + data.id + "'>" + data.name + " : " + data.message +  "</div>");
-  $("div#chat-area").prepend("<button type='button' data-num='" + data.id + "' onclick='message_delete()'>Delete</button>");
+  $("div#chat-area").prepend("<div data-num='" + data.id + "'>"  + data.name + " : " + data.message +  "</div>");
 });
 
 socket.on('all_receive', function (data){
@@ -12,10 +11,11 @@ socket.on('all_receive', function (data){
 });
 
 socket.on('SeDelete', function(data){
-  $('div[data-num='+data.id+']').remove();		
+  $("div[data-num='+data.id+']") 		
 });
 
 function message_delete(){
+
 }
 
 function send() {
