@@ -31,8 +31,10 @@ var connect_message = {
 connection.query('select * from messages', function(err, results, fields){
 	console.log('---results---');
 	console.log(results);
+	console.log('---result end---');
 	console.log('---fields---');
 	console.log(fields);
+	console.log('---fields end---');
 });
 
 // view engine setup
