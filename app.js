@@ -87,16 +87,15 @@ app.use(function(err, req, res, next) {
 
 // listen server
 server.listen(3000);
-console.log('server is listening');
+console.log('server is listening on port 3000');
 
 //--- Socket.IO ---//
 
 // クライアントとの接続が確立
 io.sockets.on('connection', function(socket) {
-	console.log('Event: connection');
-	
-	console.log('Emit: receive');
+
 	// クライアントに接続完了のメッセージを送る
+	console.log('Emit: receive');
 	socket.emit('receive', connect_message);
 
 	// DBに格納されているすべてのデータを抽出し、それをクライアントに送る
@@ -105,8 +104,9 @@ io.sockets.on('connection', function(socket) {
 		console.log('Emit: bellow data');
 		console.log(results);
 		console.log('--- data end ---');
+		// クライアントにデータを送信
 		console.log('Emit: all_receive');
-		socket.emit('all_receive', results);	
+		socket.emit('init_receive', results);	
 	});
 
 	// クライアントからメッセージが送られてきたときのイベント
@@ -114,6 +114,7 @@ io.sockets.on('connection', function(socket) {
 		//　送られてきたデータをコンソールに出力
 		console.log('Event: send');
 		console.log(data);
+		console.log('---sended data end---')
 		
 		// 送られてきたデータをDBに挿入
 		connection.query('insert into messages(name, message) values(?, ?)', [data.name, data.message], function(err, results){
@@ -130,7 +131,13 @@ io.sockets.on('connection', function(socket) {
 
 	// 送られてきたidのメッセージをDBから削除するイベント
 	socket.on('SeDelete', function(data) {
+		// 送られてきたデータをコンソールに出力
 		console.log('Event: SeDelete');
+		console.log('output data from cliant');
+		console.log(data);
+		console.log('---data end---')
+
+		// 送られてきたidのコメントをDBから削除する
 		connection.query('delete from messages where id = ?', [data.id], function(err, results){
 			// DBからdeleteした結果を出力
 			console.log('--- delete results ---');

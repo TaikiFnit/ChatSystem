@@ -1,22 +1,24 @@
 var socket = io.connect();
 
 socket.on('receive', function (data) {
-  $("div#chat-area").prepend("<div id='" + data.id + "'>" + data.name + " : " + data.message +  "</div>");
-  $("div#chat-area").prepend("<button type='button' id='" + data.id + "' onclick='message_delete(this.id)'>Delete</button>");
+  $("div#chat-area").prepend("<div data-id='" + data.id + "'>" + data.name + " : " + data.message +  "</div>");
+  $("div#chat-area").prepend("<button type='button' data-id='" + data.id + "' onclick='message_delete(this.dataset.id)'>Delete</button>");
 });
 
-socket.on('all_receive', function (data){
+socket.on('init_receive', function (data){
   for(var i = 0; i < data.length; i++){
-  $("div#chat-area").prepend("<div id='" + data[i].id + "'>" + data[i].name + " : " + data[i].message +  "</div>");
+  $("div#chat-area").prepend("<div data-id='" + data[i].id + "'>" + data[i].name + " : " + data[i].message +  "</div>");
+  $("div#chat-area").prepend("<button type='button' data-id='" + data[i].id + "' onclick='message_delete(this.dataset.id)'>Delete</button>");
   }
 });
 
 socket.on('ClDelete', function(data){
-  $("div[id='" + data.id + "']").remove();		
+  $("div[data-id='" + data.id + "']").remove();		
+  $("button[data-id='" + data.id + "']").remove();
 });
 
-function message_delete(id){
-  socket.emit("SeDelete", id);
+function message_delete(arg_id){
+  socket.emit("SeDelete", {id: arg_id});
 }
 
 function send() {
