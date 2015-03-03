@@ -95,8 +95,8 @@ console.log('server is listening on port 3000');
 io.sockets.on('connection', function(socket) {
 
 	// クライアントに接続完了のメッセージを送る
-	console.log('Emit: receive');
-	socket.emit('receive', connect_message);
+	console.log('Emit: connect_message');
+	socket.emit('connect_message', connect_message);
 
 	// DBに格納されているすべてのデータを抽出し、それをクライアントに送る
 	connection.query('select * from messages', function(err, results){
@@ -122,11 +122,12 @@ io.sockets.on('connection', function(socket) {
 			console.log('--- insert result ---');
 			console.log(results);
 			console.log('--- insert result end ---');
+	
+			// 送られてきたデータ(メッセージ)をすべてのクライアントに送る
+			console.log('Emit: receive');	
+			io.sockets.emit('receive', { id: results.insertId, name: data.name, message: data.message });
 		});
 
-		// 送られてきたデータ(メッセージ)をすべてのクライアントに送る
-		console.log('Emit: receive');	
-		io.sockets.emit('receive', { name: data.name, message: data.message });
 	});
 
 	// 送られてきたidのメッセージをDBから削除するイベント

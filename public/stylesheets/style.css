@@ -1,8 +1,61 @@
 body {
-  padding: 50px;
+  width: 300px;
+  margin: 50px auto 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+h1{
+ width: 100%;
+ font-weight: 100;
+ color: #777;
+}
+
+input.fields{
+ margin-bottom: 5px;
+}
+
+input#name{
+ width: 70%;
+ display: block;
+}
+
+input#message{
+ display: block;
+ width: 70%;
+ float: left;
+}
+
+button#send{
+ display: block;
+ float: right;
+}
+
+div#chat-area{
+ height: 400px;
+ width: 100%; 
+ overflow: scroll;
+ border: 1px solid #ddd;
+}
+
+div#chat-area div{
+ padding: 10px;
+ padding-bottom: 5px;
+ border-top: 1px solid #ddd;
+ background: #edfeed;
+}
+
+div#chat-area button{
+ margin: 10px;
+ margin-top: 5px;
+ border-bottom: 1px solid #ddd;
+}
+
+button{
+ border: 1px solid #ddd;
+ border-radius: 5px;
+}
+

@@ -9,11 +9,12 @@
 </head>
 <body>
 
-<input id="name" type="text" placeholder="your name" style="display:block">
-<input id="message" type="text" placeholder="Please Input">
-<button type="button" onclick="send()">Send!</button>
+<h1>Chat System</h1>
+<input id="name" class="fields" type="text" placeholder="your name" >
+<input id="message" class="fields" type="text" placeholder="Please Input">
+<button id="send" type="button" onclick="send()">Send!</button>
 
-<div id="chat-area" style="height: 300px; width: 500px; overflow: scroll;"></div>
+<div id="chat-area"></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
