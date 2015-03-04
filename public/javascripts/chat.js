@@ -25,10 +25,9 @@ socket.on('ClDelete', function(data){
   $("button[data-id='" + data.id + "']").remove();
 });
 
-// コメントの削除要請をする関数
-function message_delete(arg_id){
-  socket.emit("SeDelete", {id: arg_id});
-}
+socket.on('truncate', function(data){
+  $("div#chat-area").empty(); 
+});
 
 // コメントをサーバに送信する関数
 function send() {
@@ -37,3 +36,14 @@ function send() {
   $("input#message").val("");
   socket.emit('send', { name: name, message: msg });
 }
+
+// コメントの削除要請をする関数
+function message_delete(arg_id){
+  socket.emit("SeDelete", {id: arg_id});
+}
+
+function truncate(){
+  socket.emit('truncate');
+}
+
+

@@ -12,26 +12,7 @@ h1{
  width: 100%;
  font-weight: 100;
  color: #777;
-}
-
-input.fields{
- margin-bottom: 5px;
-}
-
-input#name{
- width: 70%;
- display: block;
-}
-
-input#message{
- display: block;
- width: 70%;
- float: left;
-}
-
-button#send{
- display: block;
- float: right;
+ text-align: center;
 }
 
 div#chat-area{
@@ -54,8 +35,37 @@ div#chat-area button{
  border-bottom: 1px solid #ddd;
 }
 
+input.fields{
+ margin-bottom: 5px;
+}
+
+input#name{
+ width: 70%;
+ display: block;
+}
+
+input#message{
+ display: block;
+ width: 70%;
+ float: left;
+}
+
 button{
  border: 1px solid #ddd;
  border-radius: 5px;
 }
+
+button#send{
+ display: block;
+ float: right;
+}
+
+button#truncate{
+ margin-top: 20px;
+ width: 100%; 
+}
+
+
+
+
 
