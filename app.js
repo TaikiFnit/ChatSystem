@@ -24,7 +24,8 @@ var connection = mysql.createConnection({
 
 var connect_message = {
 	"name" : "NodejsServer",
-	"message" : "Success Connection" };
+	"message" : "Success Connection"
+};
 
 // Catch data from Database and output console
 connection.query('select * from messages', function(err, results, fields){
