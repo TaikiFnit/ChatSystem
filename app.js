@@ -24,8 +24,7 @@ var connection = mysql.createConnection({
 
 var connect_message = {
 	"name" : "NodejsServer",
-	"message" : "Success Connection"
-};
+	"message" : "Success Connection" };
 
 // Catch data from Database and output console
 connection.query('select * from messages', function(err, results, fields){
@@ -143,13 +142,29 @@ io.sockets.on('connection', function(socket) {
 			// DBからdeleteした結果を出力
 			console.log('--- delete results ---');
 			console.log(results);
-			console.log('--- delete results end---');
+			console.log('--- delete results end ---');
 			
 			// クライアントにdeleteを要求
 			io.sockets.emit('ClDelete', {id: data.id});
 		});
 	});
-			
+
+	// DBに格納されているすべてのデータを削除する	
+	socket.on('truncate', function(data) {
+		// truncateイベント発生
+		console.log('Event: truncate');
+
+		// DBのmessagesテーブルに格納されているすべてのデータを削除するSQL文
+		connection.query('truncate table messages', function(err, results){
+			// DBからturncateした結果を出力
+			console.log('--- truncate results ---');
+			console.log(results);
+			console.log('--- truncate results end ---');
+
+			// クライアントにdelete要求
+			io.sockets.emit('truncate');
+		});
+	});	
 });
 
 //--- End Socket.IO ---//
