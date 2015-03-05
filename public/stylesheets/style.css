@@ -52,7 +52,7 @@ input#message{
 
 button{
  border: 1px solid #ddd;
- border-radius: 5px;
+ border-radius: 2px;
 }
 
 button#send{
