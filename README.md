@@ -1,8 +1,6 @@
 Archery Server
 ==============
 
----
-
 Event List
 --------------
 
