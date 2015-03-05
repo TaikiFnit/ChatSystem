@@ -6,12 +6,12 @@ Event List
 
 ---
 
-Event Name : send  
-Emit : emit from client  
-On : handle on server  
-Type : Object  
-Data Format : {“name” : string, “message” : string}  
-Description : send inputed data to server and insert database.  
+_Event Name_ : send  
+_Emit_ : emit from client  
+_On_ : handle on server  
+_Type_ : Object  
+_Data Format_ : {“name” : string, “message” : string}  
+_Description_ : send inputed data to server and insert database.  
 
 ---
 
