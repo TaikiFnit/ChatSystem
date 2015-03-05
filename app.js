@@ -40,7 +40,6 @@ connection.query('select * from messages', function(err, results, fields){
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('port', process.env.PORT || 3000);
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -86,10 +85,9 @@ app.use(function(err, req, res, next) {
 
 //--- End Error Handlers ---//
 
-// Note : server listen this command : npm start
 // listen server
-//server.listen(3000);
-//console.log('server is listening on port 3000');
+server.listen(3000);
+console.log('server is listening on port 3000');
 
 //--- Socket.IO ---//
 
