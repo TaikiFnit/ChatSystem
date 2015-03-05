@@ -67,4 +67,4 @@ __Emit__ : emit from client and server
 __On__ : handle on server and client  
 __Type__ : nothing  
 __Data Format__ : nothing  
-__Description__ : there are this event to remove all comments.if this event is handled on Nodejs Server (emited from client), server try to remove all data inserted database.after it, server emit truncate event to client.If this event is handled on client, please remove all comments that are displayed on screen.  
+__Description__ : there are this event to remove all comments. if this event is handled on Nodejs Server (emited from client), server try to remove all data inserted database.after it, server emit truncate event to client. handled on client, please remove all comments that are displayed on screen.  
