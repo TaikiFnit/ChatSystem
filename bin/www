@@ -30,6 +30,12 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
+ * export socket.io
+ **/
+
+var socketio = require('../routes/models/socket.js')(server);
+
+/**
  * Normalize a port into a number, string, or false.
  */
 
