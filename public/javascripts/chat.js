@@ -1,28 +1,45 @@
 var socket = io.connect();
 
 // 初回接続時に発生するイベントのハンドラー
-socket.on('connect_message', function(data) {
-  $("div#chat-area").prepend("<div>" + data.name + " : " + data.message +  "</div>");
+socket.on('connect_message', function (data) {
+    var msg = "<div id='alert' class='alert alert-info'>\
+<button class='close' data-dismiss='alert'>&times;</button>" + data.name + " : " + data.message + "</div>";
+  $("div#chat-area").prepend(msg);
 });
 
 // コメント受信時に発生するイベントのハンドラー
 socket.on('receive', function (data) {
-  $("div#chat-area").prepend("<button type='button' data-id='" + data.id + "' onclick='message_delete(this.dataset.id)'>Delete</button>");
-  $("div#chat-area").prepend("<div data-id='" + data.id + "'>" + data.name + " : " + data.message +  "</div>");
+  var element = "<form class='rows' data-id='" + data.id + "'>\
+        <div class='form-group'>\
+        <div>" + data.name + " : " + data.message +  "</div>\
+        </div>\
+        <div class='form-group'>\
+        <button type='button' data-id='" + data.id + "' class='btn btn-warning' onclick='message_delete(this.dataset.id)'>Delete</button>\
+        </div>\
+        </form>";
+      
+  $("div#chat-area").prepend(element);
 });
 
 // 初回接続時にDBに格納されているデータを受け取るイベントのハンドラー
 socket.on('init_receive', function (data){
-  for(var i = 0; i < data.length; i++){
-  $("div#chat-area").prepend("<button type='button' data-id='" + data[i].id + "' onclick='message_delete(this.dataset.id)'>Delete</button>");
-  $("div#chat-area").prepend("<div data-id='" + data[i].id + "'>" + data[i].name + " : " + data[i].message +  "</div>");
+  for (var i = 0; i < data.length; i++){
+        var element = "<form class='rows' data-id='" + data[i].id + "'>\
+        <div class='form-group'>\
+        <div>" + data[i].name + " : " + data[i].message +  "</div>\
+        </div>\
+        <div class='form-group'>\
+        <button type='button' data-id='" + data[i].id + "' class='btn btn-warning' onclick='message_delete(this.dataset.id)'>Delete</button>\
+        </div>\
+        </form>";
+      
+        $("div#chat-area").prepend(element);
   }
 });
 
 // コメントを削除するイベントのハンドラー
 socket.on('ClDelete', function(data){
-  $("div[data-id='" + data.id + "']").remove();		
-  $("button[data-id='" + data.id + "']").remove();
+  $("form[data-id='" + data.id + "']").remove();		
 });
 
 socket.on('truncate', function(data){
@@ -30,7 +47,7 @@ socket.on('truncate', function(data){
 });
 
 // コメントをサーバに送信する関数
-function send() {
+function Send() {
   var name = $("input#name").val();
   var msg = $("input#message").val();
   $("input#message").val("");
@@ -42,8 +59,6 @@ function message_delete(arg_id){
   socket.emit("SeDelete", {id: arg_id});
 }
 
-function truncate(){
+function trunCate(){
   socket.emit('truncate');
 }
-
-

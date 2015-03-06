@@ -1,6 +1,4 @@
 body {
-  width: 300px;
-  margin: 50px auto 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,64 +6,54 @@ a {
   color: #00B7FF;
 }
 
-h1{
+h1#chat-heading{
  width: 100%;
+ margin-bottom: 20px;
  font-weight: 100;
  color: #777;
  text-align: center;
 }
 
-div#chat-area{
- height: 400px;
- width: 100%; 
- overflow: scroll;
- border: 1px solid #ddd;
+form#sendForm{
+   margin-bottom: 30px;   
 }
 
-div#chat-area div{
- padding: 10px;
- padding-bottom: 5px;
- border-top: 1px solid #ddd;
- background: #edfeed;
+button#send, button#truncate{
+  width: 100%;
+}
+
+/* comment area */
+div#chat-area{
+ height: 300px;
+ margin-bottom: 30px;
+ font-size: 16px;
+ border: 1px solid #eee;
+ text-align: center;
+ overflow: scroll;
+}
+
+div#chat-area form{
+    padding-top: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+div#chat-area div.form-group div{
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+div#chat-area form:nth-child(even){
+    background: #eee;
+}
+
+div#chat-area form:nth-child(even) div.form-group div{
+    border-bottom: 1px solid #fff;
+}
+
+#alert{
+    margin-bottom: 0;
 }
 
 div#chat-area button{
- margin: 10px;
- margin-top: 5px;
- border-bottom: 1px solid #ddd;
+ width: 20%;   
 }
-
-input.fields{
- margin-bottom: 5px;
-}
-
-input#name{
- width: 70%;
- display: block;
-}
-
-input#message{
- display: block;
- width: 70%;
- float: left;
-}
-
-button{
- border: 1px solid #ddd;
- border-radius: 2px;
-}
-
-button#send{
- display: block;
- float: right;
-}
-
-button#truncate{
- margin-top: 20px;
- width: 100%; 
-}
-
-
-
-
-

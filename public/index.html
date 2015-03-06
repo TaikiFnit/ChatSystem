@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<title>archery</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	<meta charset="utf-8">
+	<title>Archery</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	<link rel="stylesheet" type="text/css" href="/components/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 
-<h1>Chat System</h1>
-<input id="name" class="fields" type="text" placeholder="your name" >
-<input id="message" class="fields" type="text" placeholder="Please Input">
-<button id="send" type="button" onclick="send()">Send!</button>
+<div class="container col-sm-offset-2 col-sm-8">
+	<h1 id="chat-heading">Chat System</h1>
 
-<div id="chat-area"></div>
+    <form class="form-horizontal" id="sendForm">
+    <div class="form-group">
+    <label class="control-label col-sm-2" for="name">Name</label>
+    <div class="col-sm-8">
+	<input id="name" class="form-control" type="text" placeholder="your name" >
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2" for="message">Message</label>
+    <div class="col-sm-8">
+	<input id="message" class="form-control" type="text" placeholder="Please Input">
+    </div>
+    </div>
+        
+    <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+	<button id="send" class="btn btn-primary " type="button" onclick="Send()">Send!</button>
+    </div>
+    </div>
+    </form>
+        
+	<div id="chat-area"></div>
+    
+    <form class="form-horizontal">
+    <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+	<button id="truncate" class="btn btn-danger" type="button" onclick="trunCate()">All Delete</button>
+    </div>
+    </div>
+    </form>
+</div>
 
-<button id="truncate" type="button" onclick="truncate()">All Delete</button>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/components/bootstrap/js/bootstrap.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/javascripts/chat.js"></script>
-
 </body>
 </html>
