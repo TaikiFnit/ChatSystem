@@ -5,6 +5,7 @@ socket.on('connect_message', function (data) {
     var msg = "<div id='alert' class='alert alert-info'>\
 <button class='close' data-dismiss='alert'>&times;</button>" + data.name + " : " + data.message + "</div>";
   $("div#chat-area").prepend(msg);
+  $("div#alert").hide().fadeIn(1000);
 });
 
 // コメント受信時に発生するイベントのハンドラー
@@ -19,6 +20,7 @@ socket.on('receive', function (data) {
         </form>";
       
   $("div#chat-area").prepend(element);
+  $("form[data-id='" + data.id + "']").hide().fadeIn(1000);
 });
 
 // 初回接続時にDBに格納されているデータを受け取るイベントのハンドラー
@@ -34,6 +36,7 @@ socket.on('init_receive', function (data){
         </form>";
       
         $("div#chat-area").prepend(element);
+	$("form[data-id='" + data[i].id + "']").hide().fadeIn(1000);
   }
 });
 
