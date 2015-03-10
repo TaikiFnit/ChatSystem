@@ -90,9 +90,9 @@ function socketio(server){
 				console.log('--- delete results ---');
 				console.log(results);
 				console.log('--- delete results end ---');
-				
+			
 				// クライアントにdeleteを要求
-				io.sockets.emit('ClDelete', {id: data.id});
+				io.sockets.emit('ClDelete', {id: parseInt(data.id)});
 			});
 		});
 
