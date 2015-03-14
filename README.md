@@ -4,8 +4,6 @@ Archery Server
 Event List
 --------------
 
----
-
 __Event Name__ : send  
 __Emit__ : emit from client  
 __On__ : handle on server  
