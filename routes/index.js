@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 // Create Connection to MySQL
-connection = require('../models/mysql.js');
+connection = require('../models/mysql.js')();
 
 // Catch data from Database and output console
 connection.query('select * from messages', function(err, results, fields){
 		// output results		
-		console.log('Connection Test to MySQL from messages fnit');
+		console.log('Connection Test to MySQL from messages in index.js');
 		console.log('---results---');
 		console.log(results);
 		console.log('---result end---');
@@ -19,7 +19,7 @@ connection.query('select * from messages', function(err, results, fields){
 // Catch data from Database and output console
 connection.query('select * from users', function(err, results, fields){
 	// output results		
-	console.log('Connection Test to MySQL from users fnit');
+	console.log('Connection Test to MySQL from users in index.js');
 	console.log('---results---');
 	console.log(results);
 	console.log('---result end---');
