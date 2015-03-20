@@ -99,6 +99,8 @@ router.post('/add', output, function(req, res){
         console.log(err);
         res.redirect('back');
       } else {
+          // セッションも一緒に送る
+          req.session.user = req.body.name;
           res.redirect('/');
       }
   });
