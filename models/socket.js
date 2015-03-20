@@ -2,21 +2,12 @@
 function socketio(server){
 
 	//--- MySQL ---//
-
-	var mysql = require('mysql');
-
-	// connect mysql data base 
-	var connection = mysql.createConnection({
-		host: process.env.DB_HOST || 'localhost',
-		user : 'mod1_user',
-		password: process.env.DB_PASS || 'IRC2015',
-		database: process.env.DB_NAME || 'mod1_DB'
-	});
-
-	// Catch data from Database and output console
+    connection = require('mysql.js')();
+    
+    // Catch data from Database and output console
 	connection.query('select * from messages', function(err, results, fields){
 		// output results		
-		console.log('Connection Test to MySQL');
+		console.log('Connection Test to MySQL fnit');
 		console.log('---results---');
 		console.log(results);
 		console.log('---result end---');
@@ -24,9 +15,7 @@ function socketio(server){
 		//console.log(fields);
 		//console.log('---fields end---');
 	});
-
-	//--- End MySQL ---//
-
+    
 	//--- Socket.IO ---//
 
 	// wakeup socket.io server

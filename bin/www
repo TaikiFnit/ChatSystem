@@ -33,7 +33,7 @@ server.on('listening', onListening);
  * wakeup socket.io server
  **/
 
-var socketio = require('../routes/models/socket.js')(server);
+var socketio = require('../models/socket.js')(server);
 
 /**
  * Normalize a port into a number, string, or false.

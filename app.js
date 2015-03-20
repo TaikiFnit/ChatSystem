@@ -4,9 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var app = express();
 
@@ -19,11 +18,27 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cookieParser());
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true,
+  store: new MongoStore({
+    db: 'session',
+    host: 'localhost',
+    clear_interval: 60 * 60 * 24
+  }),
+  cookie: {
+    httpOnly: false,
+    // bellow is a recommended option. however, it requires an https-enabled website...
+    // secure: true,
+    maxAge: new Date(Date.now() + 60 * 60 * 1000)
+  }
+}));
+
+var routes = require('./routes/index');
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
