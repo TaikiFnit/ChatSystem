@@ -52,7 +52,7 @@ var output = function(req, res, next){
 };
 
 // チャット画面をrend
-router.get('/', output, /*(loginCheck,*/ function(req, res, next) {
+router.get('/', output, loginCheck, function(req, res, next) {
   res.render('index', { user: req.session.user });
 });
 
