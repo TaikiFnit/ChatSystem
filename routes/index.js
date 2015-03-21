@@ -34,7 +34,7 @@ var loginCheck = function(req, res, next){
   if(req.session.user){
     next();
   } else {
-    res.redirect('/login');
+    res.redirect('/login', {err: ''});
   }
 };
 
@@ -63,7 +63,7 @@ router.get('/login', output, function(req, res){
         res.redirect('/');
     }
     
-    res.render('login');
+    res.render('login', {err: ''});
 });
 
 // browser用のログイン処理
@@ -80,7 +80,7 @@ router.post('/login', output, function(req, res){
              req.session.user = req.body.name;
              res.redirect('/');
          } else {
-             res.render('login');
+             res.render('login', {err: ' has-error'});
          }
          
         console.log("--- results of login ---");
@@ -240,7 +240,7 @@ router.get('/checkSession', output, function(req, res){
 });
 
 // ログアウト
-router.post('/appLogout', output, function(req, res){
+router.get('/appLogout', output, function(req, res){
   req.session.destroy();
   console.log('deleted session');
   // セッションを無効にしたことを通知

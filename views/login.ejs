@@ -15,16 +15,16 @@
 
     <h2 class="center">ログイン</h2>
     <form class="form-horizontal" id="sendForm" action="/login" method="POST">
-    <div class="form-group">
+    <div class="form-group<%= err %>">
     <label class="control-label col-sm-2" for="name">Name</label>
     <div class="col-sm-8">
 	<input id="name" class="form-control" name="name" type="text" placeholder="Name">
     </div>
     </div>
-    <div class="form-group">
+    <div class="form-group<%= err %>">
     <label class="control-label col-sm-2" for="password">Password</label>
     <div class="col-sm-8">
-	<input id="passowrd" class="form-control" type="password" name="password" placeholder="Password">
+	<input id="passowrd" class="form-control" type="password" name="password"  placeholder="Password" aria-describedby="inputError2Status">
     </div>
     </div>
         

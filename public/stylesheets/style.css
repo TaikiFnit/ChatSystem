@@ -24,10 +24,9 @@ div#topBar{
     background: #2980b9;
 }
 
-div#topBar a{
+div#topBar a,div#topBar span{
    color: white;
 }
-
 h1#chat-heading{
  width: 100%;
  margin-top: 50px;
