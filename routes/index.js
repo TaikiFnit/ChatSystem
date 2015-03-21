@@ -212,18 +212,22 @@ router.get('/checkSession', output, function(req, res){
 	console.log("checkSessionにGETされました。");
 
 	console.log("--- req ---");
-	console.log(req);
+	//console.log(req);
 	console.log("--- end req ---");
 	
 	console.log("--- res ---");
-	console.log(res);
+	//console.log(res);
 	console.log("--- end res ---");
+    
+    console.log("--- req.headers ---");
+	console.log(req.headers);
+	console.log("--- end req.headers ---");
 
-	console.log("--- req.session.user ---");
-	console.log(req.session.user);
-	console.log("--- end req.session.user ---");
+    console.log("--- req.headers.sessionid ---");
+    console.log(req.headers.sessionid);
+    console.log("--- end req.headers.sessionid ---");
 
-   	if(req.session.user){
+   	if(req.headers.sessionid){
 		console.log("trueを送信します.");
 		// セッションが有効
 		res.send({"result": true});
