@@ -1,0 +1,1 @@
+module.exports = require('./lib' + (process.env.CODE_COVERAGE ? '-cov' : '') + '/couch');

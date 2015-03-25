@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 // Create Connection to MySQL
 var connection = require('../models/mysql.js')();
+
 // Catch data from Database and output console
 connection.query('select * from messages', function(err, results, fields) {
 	// output results		
@@ -10,6 +11,7 @@ connection.query('select * from messages', function(err, results, fields) {
 	console.log(results);
 	console.log('---result end---');
 });
+
 // Catch data from Database and output console
 connection.query('select * from users', function(err, results, fields) {
 	// output results		
@@ -18,6 +20,7 @@ connection.query('select * from users', function(err, results, fields) {
 	console.log(results);
 	console.log('---result end---');
 });
+
 //--- Routing of browser ---//
 var loginCheck = function(req, res, next) {
 	if (req.session.user) {
@@ -28,6 +31,7 @@ var loginCheck = function(req, res, next) {
 		res.redirect('/login');
 	}
 };
+
 // output console request
 var output = function(req, res, next) {
 	/*console.log('--- variable req ---');
@@ -38,6 +42,7 @@ var output = function(req, res, next) {
 	console.log('--- end req.body ---');
 	next();
 };
+
 // チャット画面をrend
 router.get('/', output, loginCheck, function(req, res) {
 	console.log("debug on /");
@@ -46,24 +51,27 @@ router.get('/', output, loginCheck, function(req, res) {
 		user: req.session.user
 	});
 });
+
 // ログイン処理を行うlogin.html
 router.get('/login', output, function(req, res) {
 	console.log("debug on /login");
 	console.log(req.session.user);
+    
 	if (req.session.user) {
 		console.log('session redirect!');
 		res.redirect('/');
+        
 	} else {
+        console.log('render login!');
 		res.render('login', {
 			err: ''
 		});
 	}
 });
+
 // browser用のログイン処理
 router.post('/login', output, function(req, res) {
-	connection.query('select * from users where (name = ?) and (password = ?)', [
-		req.body.name, req.body.password
-	], function(err, results) {
+	connection.query('select * from users where (name = ?) and (password = ?)', [ req.body.name, req.body.password ],function(err, results) {
 		if (err) {
 			// エラー時の処理
 			console.log(err);
@@ -77,17 +85,17 @@ router.post('/login', output, function(req, res) {
 				err: ' has-error'
 			});
 		}
+        
 		console.log("--- results of login ---");
 		console.log(results);
 		console.log("--- end results ---");
 	});
 });
+
 // ユーザーの登録を行うPOSTの処理
 router.post('/add', output, function(req, res) {
 	/* mysql */
-	connection.query('insert into users(name, password) values(?, ?)', [req.body
-		.name, req.body.password
-	], function(err, results) {
+	connection.query('insert into users(name, password) values(?, ?)', [ req.body.name, req.body.password ], function(err, results) {
 		if (err) {
 			// エラー時の処理
 			console.log(err);
@@ -99,21 +107,22 @@ router.post('/add', output, function(req, res) {
 		}
 	});
 });
+
 router.get('/logout', output, function(req, res) {
 	req.session.destroy();
 	console.log('deleted session');
 	res.redirect('/');
 });
+
 // Routing of Application
+
 // アカウント登録
 router.post('/appCreate', output, function(req, res) {
 	// output request data
 	console.log(req.body);
 	var name = req.body.name;
 	var password = req.body.password;
-	connection.query('insert into users(name, password) values(?, ?)', [name,
-		password
-	], function(err, results) {
+	connection.query('insert into users(name, password) values(?, ?)', [ name, password ], function(err, results) {
 		var checkResult = function(re, er) {
 			if (er) {
 				return false;
@@ -138,15 +147,14 @@ router.post('/appCreate', output, function(req, res) {
 		res.send(response);
 	});
 });
+
 // Login for application
 router.post('/appLogin', output, function(req, res) {
 	var name = req.body.name;
 	var password = req.body.password;
 	console.log('name : ' + name);
 	console.log('password : ' + password);
-	connection.query('select * from users where (name = ?) and (password = ?)', [
-		name, password
-	], function(err, results) {
+	connection.query('select * from users where (name = ?) and (password = ?)', [ name, password ], function(err, results) {
 		var checkResult = function(re, er) {
 			if (er) {
 				return false;
@@ -163,14 +171,17 @@ router.post('/appLogin', output, function(req, res) {
 			"result": r = checkResult(results, err),
 			"err": err
 		};
+        
 		// output variable err
 		console.log('--- err ---');
 		console.log(err);
 		console.log('--- err end ---');
+        
 		req.session.user = req.body.name;
 		res.send(response);
 	});
 });
+
 // セッションのチェック
 router.get('/checkSession', output, function(req, res) {
 	console.log("checkSessionにGETされました。");
@@ -200,6 +211,7 @@ router.get('/checkSession', output, function(req, res) {
 		});
 	}
 });
+
 // ログアウト
 router.get('/appLogout', output, function(req, res) {
 	req.session.destroy();

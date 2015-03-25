@@ -5,9 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+var connectCouchDB = require('connect-couchdb')(session);
 
 var app = express();
+
+var store = new connectCouchDB({
+	name: 'archery-server-sessions',
+	username: '',
+	password: '',
+	host: 'localhost',
+	post: '5984'
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,20 +30,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser());
 app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  store: new MongoStore({
-    db: 'session',
-    host: 'localhost',
-    clear_interval: 60 * 60 * 24
-  }),
-  cookie: {
-    httpOnly: false,
-    // bellow is a recommended option. however, it requires an https-enabled website...
-    // secure: true,
-    maxAge: new Date(Date.now() + 60 * 60 * 1000)
-  }
-}));
+	name: "connect.sid",
+	secret: 'secret',
+  	saveUninitialized: true,
+	cookie: {
+		httpOnly: false
+    		// bellow is a recommended option. however, it requires an https-enabled website...
+    		// secure: true,
+	},
+	store: store
+	})
+);
 
 var routes = require('./routes/index');
 app.use('/', routes);

@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/taikifnit/.nave/installed/0.12.1/bin/node',
+1 verbose cli   '/home/taikifnit/.nave/installed/0.12.1/bin/npm',
+1 verbose cli   'start' ]
+2 info using npm@2.5.1
+3 info using node@v0.12.1
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info prestart Archery-Server@0.0.2
+6 info start Archery-Server@0.0.2
+7 verbose unsafe-perm in lifecycle true
+8 info Archery-Server@0.0.2 Failed to exec start script
+9 verbose stack Error: Archery-Server@0.0.2 start: `node ./bin/www`
+9 verbose stack Exit status 1
+9 verbose stack     at EventEmitter.<anonymous> (/home/taikifnit/.nave/installed/0.12.1/lib/node_modules/npm/lib/utils/lifecycle.js:213:16)
+9 verbose stack     at EventEmitter.emit (events.js:110:17)
+9 verbose stack     at ChildProcess.<anonymous> (/home/taikifnit/.nave/installed/0.12.1/lib/node_modules/npm/lib/utils/spawn.js:14:12)
+9 verbose stack     at ChildProcess.emit (events.js:110:17)
+9 verbose stack     at maybeClose (child_process.js:1008:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1080:5)
+10 verbose pkgid Archery-Server@0.0.2
+11 verbose cwd /home/taikifnit/Archery-Server
+12 error Linux 3.16.0-33-generic
+13 error argv "/home/taikifnit/.nave/installed/0.12.1/bin/node" "/home/taikifnit/.nave/installed/0.12.1/bin/npm" "start"
+14 error node v0.12.1
+15 error npm  v2.5.1
+16 error code ELIFECYCLE
+17 error Archery-Server@0.0.2 start: `node ./bin/www`
+17 error Exit status 1
+18 error Failed at the Archery-Server@0.0.2 start script 'node ./bin/www'.
+18 error This is most likely a problem with the Archery-Server package,
+18 error not with npm itself.
+18 error Tell the author that this fails on your system:
+18 error     node ./bin/www
+18 error You can get their info via:
+18 error     npm owner ls Archery-Server
+18 error There is likely additional logging output above.
+19 verbose exit [ 1, true ]

@@ -16,7 +16,6 @@
     "express-session": "*",
     "socket.io": "*",
     "mysql": "*",
-    "mongoose": "*",
-    "connect-mongo": "*"
+    "connect-couchdb": "*"
   }
 }
