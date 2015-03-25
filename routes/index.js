@@ -31,6 +31,7 @@ connection.query('select * from users', function(err, results, fields){
 //--- Routing of browser ---//
 
 var loginCheck = function(req, res, next){
+    
   if(req.session.user){
       console.log('red if');
     next();
@@ -42,9 +43,9 @@ var loginCheck = function(req, res, next){
 
 // output console request
 var output = function(req, res, next){
-	//console.log('--- variable req ---');
-	//console.log(req);
-	//console.log('--- end req ---');
+	/*console.log('--- variable req ---');
+	console.log(req);
+	console.log('--- end req ---');*/
 
 	console.log('--- variable req.body ---');
 	console.log(req.body);
@@ -54,18 +55,26 @@ var output = function(req, res, next){
 };
 
 // チャット画面をrend
-router.get('/', output, loginCheck, function(req, res, next) {
-  res.render('index', { user: req.session.user });
+router.get('/', output, loginCheck, function(req, res) {
+    console.log("debug on /");
+    console.log(req.session.user);
+    res.render('index', { user: req.session.user });
 });
 
 // ログイン処理を行うlogin.html
 router.get('/login', output, function(req, res){
-    /* mysql */
+    
+    console.log("debug on /login");
+    console.log(req.session.user);
+    
+    
     if(req.session.user){
+        console.log('session redirect!');
         res.redirect('/');
     }
-    
-    res.render('login', {err: ''});
+    else{
+        res.render('login', {err: ''});
+    }
 });
 
 // browser用のログイン処理
