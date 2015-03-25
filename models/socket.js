@@ -2,7 +2,7 @@
 function socketio(server){
 
 	//--- MySQL ---//
-    connection = require('./mysql.js')();
+	connection = require('./mysql.js')();
     
     // Catch data from Database and output console
 	connection.query('select * from messages', function(err, results, fields){

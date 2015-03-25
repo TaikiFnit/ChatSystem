@@ -32,8 +32,10 @@ connection.query('select * from users', function(err, results, fields){
 
 var loginCheck = function(req, res, next){
   if(req.session.user){
+      console.log('red if');
     next();
   } else {
+      console.log('rredirect login');
     res.redirect('/login');
   }
 };
