@@ -148,12 +148,12 @@ router.post('/appCreate', output, function(req, res) {
                 return false;   
             }
             console.log('--- r ---');
-		console.log(r);	
+		console.log(re);	
 		console.log('--- r end ---');
 		console.log('--- r.toString ---');
-		console.log(r.toString());
+		console.log(re.toString());
 		console.log('--- r.toString end ---');
-			if(r.toString() !== ''){
+			if(re.toString() !== ''){
 				console.log('in if');
 				return true;
 			} else {
@@ -164,7 +164,7 @@ router.post('/appCreate', output, function(req, res) {
 
 		var response = {
 			"result": r = checkResult(results, err),
-			"err": !r ? "cannot create new account" : null
+			"err": err
 		};
         
 		req.session.user = req.body.name;
@@ -192,12 +192,12 @@ router.post('/appLogin', output, function(req, res){
                 return false;
             }
 		console.log('--- r ---');
-		console.log(r);	
+		console.log(re);	
 		console.log('--- r end ---');
 		console.log('--- r.toString ---');
-		console.log(r.toString());
+		console.log(re.toString());
 		console.log('--- r.toString end ---');
-			if(r.toString() !== ''){
+			if(re.toString() !== ''){
 				console.log('in if');
 				return true;
 			} else {
@@ -208,7 +208,7 @@ router.post('/appLogin', output, function(req, res){
 
 		var response = {
 			"result": r = checkResult(results, err),
-			"err": !r ? "cannot login" : null
+			"err": err
 		};
         
 		req.session.user = req.body.name;
