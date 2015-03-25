@@ -134,25 +134,11 @@ router.post('/appCreate', output, function(req, res) {
     var password = req.body.password;
    
     connection.query('insert into users(name, password) values(?, ?)', [name, password], function(err, results){
-		// output variable err
-		console.log('--- err ---');
-		console.log(err);
-		console.log('--- err end ---');
-
-		// output variable results
-		console.log('--- results ---');
-		console.log(results);	
-
 		var checkResult = function(re, er){
             if(er){
                 return false;   
             }
-            console.log('--- r ---');
-		console.log(re);	
-		console.log('--- r end ---');
-		console.log('--- r.toString ---');
-		console.log(re.toString());
-		console.log('--- r.toString end ---');
+            
 			if(re.toString() !== ''){
 				console.log('in if');
 				return true;
@@ -166,6 +152,11 @@ router.post('/appCreate', output, function(req, res) {
 			"result": r = checkResult(results, err),
 			"err": err
 		};
+        
+        // output variable err
+		console.log('--- err ---');
+		console.log(err);
+		console.log('--- err end ---');
         
 		req.session.user = req.body.name;
 		res.send(response);
@@ -179,24 +170,12 @@ router.post('/appLogin', output, function(req, res){
 	console.log('name : ' + name);
 	console.log('password : ' + password);
 
-	connection.query('select * from users where (name = ?) and (password = ?)', [name, password], function(err, results){
-		// output variable err
-		console.log('--- err ---');
-		console.log(err);
-		console.log('--- err end ---');
-        
-        
+	connection.query('select * from users where (name = ?) and (password = ?)', [name, password], function(err, results){      
         
 		var checkResult = function(re, er){
             if(er){
                 return false;
             }
-		console.log('--- r ---');
-		console.log(re);	
-		console.log('--- r end ---');
-		console.log('--- r.toString ---');
-		console.log(re.toString());
-		console.log('--- r.toString end ---');
 			if(re.toString() !== ''){
 				console.log('in if');
 				return true;
@@ -210,6 +189,11 @@ router.post('/appLogin', output, function(req, res){
 			"result": r = checkResult(results, err),
 			"err": err
 		};
+        
+        // output variable err
+		console.log('--- err ---');
+		console.log(err);
+		console.log('--- err end ---');  
         
 		req.session.user = req.body.name;
 		res.send(response);
