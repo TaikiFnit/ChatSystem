@@ -143,8 +143,11 @@ router.post('/appCreate', output, function(req, res) {
 		console.log('--- results ---');
 		console.log(results);	
 
-		var checkResult = function(r){
-		console.log('--- r ---');
+		var checkResult = function(re, er){
+            if(er){
+                return false;   
+            }
+            console.log('--- r ---');
 		console.log(r);	
 		console.log('--- r end ---');
 		console.log('--- r.toString ---');
@@ -160,10 +163,9 @@ router.post('/appCreate', output, function(req, res) {
 		};
 
 		var response = {
-			"result": r = checkResult(results),
+			"result": r = checkResult(results, err),
 			"err": !r ? "cannot create new account" : null
 		};
-
         
 		req.session.user = req.body.name;
 		res.send(response);
@@ -182,16 +184,13 @@ router.post('/appLogin', output, function(req, res){
 		console.log('--- err ---');
 		console.log(err);
 		console.log('--- err end ---');
-
-		// output variable results
-		console.log('--- results ---');
-		console.log(results);	
-		console.log('--- results end ---');
-		console.log('--- results.toString ---');
-		console.log(results.toString());
-		console.log('--- results.toString end ---');
         
-		var checkResult = function(r){
+        
+        
+		var checkResult = function(re, er){
+            if(er){
+                return false;
+            }
 		console.log('--- r ---');
 		console.log(r);	
 		console.log('--- r end ---');
@@ -208,7 +207,7 @@ router.post('/appLogin', output, function(req, res){
 		};
 
 		var response = {
-			"result": r = checkResult(results),
+			"result": r = checkResult(results, err),
 			"err": !r ? "cannot login" : null
 		};
         
