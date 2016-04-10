@@ -1,5 +1,7 @@
-Archery Server
+ChatSystem
 ==============
+This is the ChatSystem using Nodejs and Socket.IO.
+It provides websocket event for chat system:running on web client, android or ios etc.
 
 Event List
 --------------
